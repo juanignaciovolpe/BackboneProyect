@@ -1,0 +1,77 @@
+body{
+	background: url(../img/background.jpg);
+
+}
+
+.col-md-3{
+	border-radius: 5px;
+	background-color: white;
+	border: 1px solid rgba(188,188,188,0.82)
+}
+
+a{
+	text-decoration: none;
+	color: black
+}
+
+a:hover{
+	text-decoration: none;
+	color: black
+}
+
+.noImg{
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.rowImg{
+	width: 100%; 
+	max-height: 100%;
+}
+
+
+
+.divShow{
+	background-color: white;
+	padding: 3px;
+	border-radius: 4px;
+
+}
+
+.option{
+	font-weight: 900;
+}
+
+.personLink{
+	color: rgb(0, 0, 129);
+}
+
+.menu{
+	padding: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+	background-color: white;
+	border-radius: 0px;
+	width: 100%
+	}
+
+@media screen and (min-width: 768px) {
+    .rowFront{
+		height:390px;
+	}
+
+	
+
+	.menu{
+	padding: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+	background-color: white;
+	border-radius: 5px;
+}
+}
+
+
+
+
+
