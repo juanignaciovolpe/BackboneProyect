@@ -18,6 +18,15 @@
     </div> -->
 
     <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <h1 class="pageTitle"></h1>
+      </div>
+      <div class="col-md-2"></div>
+      
+    </div>
+
+    <div class="row">
       <div class="col-md-2" id="menu-content">
       
       </div>
@@ -40,19 +49,43 @@
  
 
 
+  <!-- the Index Template -->
+  <script type="text/template" id="indexTemplate">
+    
+    <div id="indexContainer" class="row">
+      Welcome to the Movie App, you can search the movie that you want and see its information, some images and the Starring who works on it, also you can see data about the persons who was involved. The site is responsive so you will no have problems on display it  a lot of devices. Good Luck!
+    </div>
+  </script>
+
+
   <!-- the rated container -->
   <script type="text/template" id="moviesTemplate">
     
     <div id="container" class="row"></div>
   </script>
 
+  <!-- the row template, renders once for each item in the index -->
+  <script type="text/template" id="rowTemplate">
+      
+      <a href="#movie/<%= id %>/view">
+      <h4 style="max-height: 10px;"><%= title %> (<%= release_date.substring(0, 4) %>)</h4>
+      
+      <br/>
+      <% if (poster_path == null) { %>
+        
+        <img src="img/No_Image_Available.png" class="noImg"/>
+      <% } else { %>
+        <img src="http://image.tmdb.org/t/p/w396/<%= poster_path %>" class="rowImg"/>
 
+      <% } %>
+    
+      
+      <br/>
+      <br/>
+      </a>
+     
 
-
-
-
-
-
+  </script>
 
   <!-- the row template, renders once for each item in the index -->
   <script type="text/template" id="rowTemplate">
@@ -82,8 +115,6 @@
 
   <div class="col-md-6 divShow">
     <h3 style="text-align: center"><%= title %></h3>
-    
-
 
     <img src="http://image.tmdb.org/t/p/w396/<%= backdrop_path %>" style="width: 100%"/>
 
@@ -168,21 +199,24 @@
     <div>
     <span class="option">Crew</span> <br/> <span class="crew"></span>
     </div>
-
-
-
-
-    
     
   </div>
   
   <div class="col-md-6">
 
-    <img src="http://image.tmdb.org/t/p/w396/<%= poster_path %>"/></div>
-  </div>
-    
-   
+    <% if (poster_path == null) { %>
+        
+        <img src="img/No_Image_Available.png" class="noImg"/>
+      <% } else { %>
+        <img src="http://image.tmdb.org/t/p/w396/<%= poster_path %>" class="rowImg"/>
 
+    <% } %>
+
+    <div>
+    <span class="images"></span>
+    </div>
+
+  </div>
 
   </script>
 
@@ -253,7 +287,14 @@
   </div>
   
   <div class="col-md-6">
-    <img src="http://image.tmdb.org/t/p/w396/<%= profile_path %>" style="width: 100%"/>
+
+    <% if (profile_path == null) { %>
+        
+        
+      <% } else { %>
+        <img src="http://image.tmdb.org/t/p/w396/<%= profile_path %>" style="width: 100%"/>
+
+      <% } %>
    
   </div>
     
@@ -296,71 +337,41 @@
 
     <ul class="nav nav-pills nav-stacked">
       <% if (method == 'topRated') { %>
-        <li><a href="#">Inicio</a></li>
-
+        <li><a href="#">Index</a></li>
         <li class="active"><a href="#movies/topRated/1">Top Rated</a></li>
-
         <li><a href="#movies/popular/1">Popular</a></li>
-
         <li><a href="#movies/upcoming/1">Upcoming</a></li>
-
         <li><a href="#movies/nowPlaying/1">Now Playing</a></li>
-
       <% } else if(method == 'index') { %>
-        <li class="active"><a href="#">Inicio</a></li>
-
+        <li class="active"><a href="#">Index</a></li>
         <li><a href="#movies/topRated/1">Top Rated</a></li>
-
         <li><a href="#movies/popular/1">Popular</a></li>
-
         <li><a href="#movies/upcoming/1">Upcoming</a></li>
-
         <li><a href="#movies/nowPlaying/1">Now Playing</a></li>
-
       <% } else if(method == 'upcoming') { %>
-        <li><a href="#">Inicio</a></li>
-
+        <li><a href="#">Index</a></li>
         <li><a href="#movies/topRated/1">Top Rated</a></li>
-
         <li><a href="#movies/popular/1">Popular</a></li>
-
         <li class="active"><a href="#movies/upcoming/1">Upcoming</a></li>
-
         <li><a href="#movies/nowPlaying/1">Now Playing</a></li>
-
       <% } else if(method == 'showMovie') { %>
-        <li><a href="#">Inicio</a></li>
-
+        <li><a href="#">Index</a></li>
         <li><a href="#movies/topRated/1">Top Rated</a></li>
-
         <li><a href="#movies/popular/1">Popular</a></li>
-
         <li><a href="#movies/upcoming/1">Upcoming</a></li>
-
         <li><a href="#movies/nowPlaying/1">Now Playing</a></li>
-
       <% } else if(method == 'nowPlaying') { %>
-        <li><a href="#">Inicio</a></li>
-
+        <li><a href="#">Index</a></li>
         <li><a href="#movies/topRated/1">Top Rated</a></li>
-
         <li><a href="#movies/popular/1">Popular</a></li>
-
         <li><a href="#movies/upcoming/1">Upcoming</a></li>
-
         <li class="active"><a href="#movies/nowPlaying/1">Now Playing</a></li>
-
       <% } else if(method == 'popular') { %>
-        <li><a href="#">Inicio</a></li>
-
+        <li><a href="#">Index</a></li>
         <li><a href="#movies/topRated/1">Top Rated</a></li>
-
         <li class="active"><a href="#movies/popular/1">Popular</a></li>
-
         <li><a href="#movies/upcoming/1">Upcoming</a></li>
-
         <li><a href="#movies/nowPlaying/1">Now Playing</a></li>
-
       <% } %>
     </ul>
 
@@ -374,6 +385,7 @@
   <!-- load our scripts -->
   <script type="text/javascript" src="js/routers/movieRouter.js"></script>
   <script type="text/javascript" src="js/models/movieModel.js"></script>
+  <script type="text/javascript" src="js/views/index.js"></script>
   <script type="text/javascript" src="js/views/moviesRated.js"></script>
   <script type="text/javascript" src="js/views/moviesPopular.js"></script>
   <script type="text/javascript" src="js/views/moviesUpcoming.js"></script>

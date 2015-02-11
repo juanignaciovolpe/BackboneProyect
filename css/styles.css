@@ -55,6 +55,21 @@ a:hover{
 	width: 100%
 	}
 
+.pageTitle{
+	text-align: center;
+	background-color: white;
+	border: 1px solid grey;
+	border-radius: 3px;
+	color: rgb(53, 67, 136);
+}
+
+#indexContainer{
+	font-weight: 900;
+	background-color: white;
+	padding: 20px;
+	border-radius: 5px;
+}
+
 @media screen and (min-width: 768px) {
     .rowFront{
 		height:390px;

@@ -11,7 +11,6 @@ APP.MovieRouter = Backbone.Router.extend({
     "movie/:id/view": "showMovie", 
     "person/:id/view": "showPerson",
 
-
   },
 
   initialize: function () {
@@ -26,9 +25,6 @@ APP.MovieRouter = Backbone.Router.extend({
   updateDebug: function () {
     $('#output').text(JSON.stringify(this.notes.toJSON(), null, 4));
   },
-
-
-
 
   showMovie: function (id) {
    
@@ -45,10 +41,9 @@ APP.MovieRouter = Backbone.Router.extend({
 
 
 
-       var urlStars = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=a6f213b0214f72aea52497ce5310cd0e"
-    $.getJSON(urlStars, function(result){
+      var urlStars = "http://api.themoviedb.org/3/movie/" + id + "/credits?api_key=a6f213b0214f72aea52497ce5310cd0e"
+      $.getJSON(urlStars, function(result){
 
-//http://api.themoviedb.org/3/person/1?api_key=a6f213b0214f72aea52497ce5310cd0e
       var stars = result.cast;
 
       console.log(stars.length);
@@ -80,15 +75,27 @@ APP.MovieRouter = Backbone.Router.extend({
 
       
 
-     
-    
+    });
 
-      
-     
-      //$('#primary-content').prepend(postPager.render().el);
+
+    var urlMovieImages = "http://api.themoviedb.org/3/movie/" + id + "/images?api_key=a6f213b0214f72aea52497ce5310cd0e"
+      $.getJSON(urlMovieImages, function(result){
+
+      var images = result.backdrops;
+
+      console.log(images.length);
+      images.forEach(function(entry) {
+
+     // console.log('<img src="http://image.tmdb.org/t/p/w396' + entry.file_path + '/><br/>');
+
+          $('.images').append('<br/><img src="http://image.tmdb.org/t/p/w396' + entry.file_path + '" style="width: 100%;"><br/>');
+        
+       });
 
             
     });
+
+  
     });
 
 
@@ -104,7 +111,7 @@ APP.MovieRouter = Backbone.Router.extend({
     $('#menu-content').html(this.currentView.render().el);
 
   
-    
+    $('.pageTitle').html('Show Movie');
     
   },
 
@@ -125,10 +132,6 @@ APP.MovieRouter = Backbone.Router.extend({
 
     });
 
-
-
-
-
     this.currentView = new APP.MenuView({
       
       
@@ -138,25 +141,18 @@ APP.MovieRouter = Backbone.Router.extend({
     $('#menu-content').html(this.currentView.render().el);
 
   
-    
+    $('.pageTitle').html('Show Person');
     
   },
 
-
-
   topRated: function (page) {
 
-
-
     var movies = new APP.MovieRatedCollection();
-    //console.log(collection);
+
     movies.fetch({reset: true, data: $.param({page: page})});
 
-   
-
     this.currentView = new APP.MoviesRatedView({
-      
-      
+    
       movies: movies,
       
     });
@@ -166,7 +162,6 @@ APP.MovieRouter = Backbone.Router.extend({
     var prePager;
     var postPager;
     $.getJSON("http://api.themoviedb.org/3/movie/top_rated?api_key=a6f213b0214f72aea52497ce5310cd0e", function(result){
-
 
       var total_pages = result.total_pages;
 
@@ -189,7 +184,6 @@ APP.MovieRouter = Backbone.Router.extend({
 
       
       $('#primary-content').append(prePager.render().el);
-      //$('#primary-content').prepend(postPager.render().el);
 
             
     });
@@ -203,21 +197,15 @@ APP.MovieRouter = Backbone.Router.extend({
     $('#menu-content').html(this.currentView.render().el);
 
     
-    
+    $('.pageTitle').html('Top Rated Movies');
 
-
-    // we would call to the index with
-    // this.notes.fetch()
-    // to pull down the index json response to populate our collection initially
   },
 
 
   popular: function (page) {
 
-
-
     var movies = new APP.MoviePopularCollection();
-    //console.log(collection);
+
     movies.fetch({reset: true, data: $.param({page: page})});
 
    
@@ -230,13 +218,11 @@ APP.MovieRouter = Backbone.Router.extend({
     });
     $('#primary-content').html(this.currentView.render().el);
 
-
     var prePager;
     var postPager;
     $.getJSON("http://api.themoviedb.org/3/movie/top_rated?api_key=a6f213b0214f72aea52497ce5310cd0e", function(result){
 
-
-      var total_pages = result.total_pages;
+     var total_pages = result.total_pages;
 
       prePager = new APP.PagerView({
         
@@ -253,17 +239,13 @@ APP.MovieRouter = Backbone.Router.extend({
         method: 'popular'
 
       });
-    
-
-      
+          
       $('#primary-content').append(prePager.render().el);
-      //$('#primary-content').prepend(postPager.render().el);
 
-            
+
     });
 
     this.currentView = new APP.MenuView({
-      
       
       method: 'popular',
       
@@ -271,39 +253,29 @@ APP.MovieRouter = Backbone.Router.extend({
     $('#menu-content').html(this.currentView.render().el);
 
     
-    
+    $('.pageTitle').html('Most Popular Movies');
 
 
-    // we would call to the index with
-    // this.notes.fetch()
-    // to pull down the index json response to populate our collection initially
   },
 
 
   upcoming: function (page) {
 
-
-
     var movies = new APP.MovieUpcomingCollection();
-    //console.log(collection);
+ 
     movies.fetch({reset: true, data: $.param({page: page})});
 
-   
-
     this.currentView = new APP.MoviesUpcomingView({
-      
-      
+   
       movies: movies,
       
     });
     $('#primary-content').html(this.currentView.render().el);
-
 
     var prePager;
     var postPager;
     $.getJSON("http://api.themoviedb.org/3/movie/upcoming?api_key=a6f213b0214f72aea52497ce5310cd0e", function(result){
 
-
       var total_pages = result.total_pages;
 
       prePager = new APP.PagerView({
@@ -321,56 +293,41 @@ APP.MovieRouter = Backbone.Router.extend({
         method: 'upcoming'
 
       });
-    
-
-      
+  
       $('#primary-content').append(prePager.render().el);
-      //$('#primary-content').prepend(postPager.render().el);
-
+ 
             
     });
 
     this.currentView = new APP.MenuView({
-      
-      
+     
       method: 'upcoming',
       
     });
     $('#menu-content').html(this.currentView.render().el);
-
+   
     
-    
+    $('.pageTitle').html('Upcoming Movies');
 
-
-    // we would call to the index with
-    // this.notes.fetch()
-    // to pull down the index json response to populate our collection initially
   },
 
 
   nowPlaying: function (page) {
 
-
-
     var movies = new APP.MoviePlayingCollection();
-    //console.log(collection);
+  
     movies.fetch({reset: true, data: $.param({page: page})});
 
-   
-
     this.currentView = new APP.MoviesNowPlayingView({
-      
-      
+     
       movies: movies,
       
     });
     $('#primary-content').html(this.currentView.render().el);
 
-
     var prePager;
     var postPager;
     $.getJSON("http://api.themoviedb.org/3/movie/top_rated?api_key=a6f213b0214f72aea52497ce5310cd0e", function(result){
-
 
       var total_pages = result.total_pages;
 
@@ -389,53 +346,39 @@ APP.MovieRouter = Backbone.Router.extend({
         method: 'nowPlaying'
 
       });
+
     
-
-      
       $('#primary-content').append(prePager.render().el);
-      //$('#primary-content').prepend(postPager.render().el);
-
-            
+  
+          
     });
 
     this.currentView = new APP.MenuView({
-      
       
       method: 'nowPlaying',
       
     });
     $('#menu-content').html(this.currentView.render().el);
+   
+    $('.pageTitle').html('Now Playing Movies');
 
-    
-    
-
-
-    // we would call to the index with
-    // this.notes.fetch()
-    // to pull down the index json response to populate our collection initially
   },
 
 
   index: function () {
 
-    $('#primary-content').html('');
-    
+    this.currentView = new APP.IndexView({});
 
+    $('#primary-content').html(this.currentView.render().el);
+    
     this.currentView = new APP.MenuView({
-      
-      
+     
       method: 'index',
       
     });
     $('#menu-content').html(this.currentView.render().el);
 
-    
-    
-
-
-    // we would call to the index with
-    // this.notes.fetch()
-    // to pull down the index json response to populate our collection initially
+    $('.pageTitle').html('Movie Application');
   },
 
 });
